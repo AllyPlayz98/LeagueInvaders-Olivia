@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,9 +15,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int GAME_STATE = 1;
 	final int END_STATE = 2;
 	int currentState = MENU_STATE;
+	Font titleFont;
 
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
+		titleFont = new Font("Arial", Font.PLAIN, 48);
 
 	}
 
@@ -108,6 +111,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void drawMenuState(Graphics g) {
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+        g.setFont(titleFont);
+        g.setColor(Color.YELLOW);
+        g.drawString("LEAGUE INVADERS", 25, 110);
+        g.drawString("Press ENTER to start", 20, 340);
+        g.drawString("Press SPACE for", 60, 600);
+        g.drawString("instructions", 129, 650);
 	}
 
 	void drawGameState(Graphics g) {
@@ -118,5 +127,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void drawEndState(Graphics g) {
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		g.setFont(titleFont);
+        g.setColor(Color.YELLOW);
+        g.drawString("GAME OVER", 100, 110);
+        g.drawString("You killed () enemies", 20, 340);
+        g.drawString("Press ENTER to", 70, 600);
+        g.drawString("restart", 173, 650);
 	}
 }
