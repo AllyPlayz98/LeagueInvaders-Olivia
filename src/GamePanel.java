@@ -16,6 +16,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int END_STATE = 2;
 	int currentState = MENU_STATE;
 	Font titleFont;
+	Rocketship r = new Rocketship(250, 700, 50, 50);
 
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
@@ -81,6 +82,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		if (key == KeyEvent.VK_ENTER) {
 			currentState++;
+		} else if (key == KeyEvent.VK_UP) {
+			r.y -=5;
+		} else if (key == KeyEvent.VK_DOWN) {
+			r.y +=5;
+		} else if (key == KeyEvent.VK_RIGHT) {
+			r.x +=5;
+		} else if (key == KeyEvent.VK_LEFT) {
+			r.x -=5;
 		}
 
 		if (currentState > END_STATE) {
@@ -101,7 +110,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateGameState() {
-
+		r.update();
 	}
 
 	void updateEndState() {
@@ -111,27 +120,28 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void drawMenuState(Graphics g) {
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
-        g.setFont(titleFont);
-        g.setColor(Color.YELLOW);
-        g.drawString("LEAGUE INVADERS", 25, 110);
-        g.drawString("Press ENTER to start", 20, 340);
-        g.drawString("Press SPACE for", 60, 600);
-        g.drawString("instructions", 129, 650);
+		g.setFont(titleFont);
+		g.setColor(Color.YELLOW);
+		g.drawString("LEAGUE INVADERS", 25, 110);
+		g.drawString("Press ENTER to start", 20, 340);
+		g.drawString("Press SPACE for", 60, 600);
+		g.drawString("instructions", 129, 650);
 	}
 
 	void drawGameState(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		r.draw(g);
 	}
 
 	void drawEndState(Graphics g) {
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
 		g.setFont(titleFont);
-        g.setColor(Color.YELLOW);
-        g.drawString("GAME OVER", 100, 110);
-        g.drawString("You killed () enemies", 20, 340);
-        g.drawString("Press ENTER to", 70, 600);
-        g.drawString("restart", 173, 650);
+		g.setColor(Color.YELLOW);
+		g.drawString("GAME OVER", 100, 110);
+		g.drawString("You killed () enemies", 20, 340);
+		g.drawString("Press ENTER to", 70, 600);
+		g.drawString("restart", 173, 650);
 	}
 }
