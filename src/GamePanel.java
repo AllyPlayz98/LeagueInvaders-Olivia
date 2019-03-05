@@ -17,6 +17,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int currentState = MENU_STATE;
 	Font titleFont;
 	Rocketship r = new Rocketship(250, 700, 50, 50);
+	ObjectManager om = new ObjectManager(r);
 
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
@@ -83,13 +84,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (key == KeyEvent.VK_ENTER) {
 			currentState++;
 		} else if (key == KeyEvent.VK_UP) {
-			r.y -=5;
+			r.y -= 5;
 		} else if (key == KeyEvent.VK_DOWN) {
-			r.y +=5;
+			r.y += 5;
 		} else if (key == KeyEvent.VK_RIGHT) {
-			r.x +=5;
+			r.x += 5;
 		} else if (key == KeyEvent.VK_LEFT) {
-			r.x -=5;
+			r.x -= 5;
 		}
 
 		if (currentState > END_STATE) {
@@ -106,11 +107,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateMenuState() {
-
+		om.update();
 	}
 
 	void updateGameState() {
-		r.update();
+
 	}
 
 	void updateEndState() {
@@ -131,7 +132,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	void drawGameState(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
-		r.draw(g);
+		om.draw(g);
 	}
 
 	void drawEndState(Graphics g) {
