@@ -91,13 +91,20 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			r.x += 5;
 		} else if (key == KeyEvent.VK_LEFT) {
 			r.x -= 5;
+		} 
+		else if (key == KeyEvent.VK_SPACE) {
+			om.addProjectile(new Projectile(r.x, r.y, 10, 10));
 		}
 
-		if (currentState > END_STATE) {
+		
 
-			currentState = MENU_STATE;
+	if(currentState>END_STATE)
 
-		}
+	{
+
+		currentState = MENU_STATE;
+
+	}
 	}
 
 	@Override
