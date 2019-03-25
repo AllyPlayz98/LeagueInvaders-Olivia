@@ -10,13 +10,12 @@ public class Projectile extends GameObject {
 
 	void update() {
 		y = y - speed;
-		if (y<0) {
+		if (y < 0) {
 			isAlive = false;
-		}
-		else {
+		} else {
 			isAlive = true;
 		}
-		
+
 	}
 
 	void draw(Graphics g) {

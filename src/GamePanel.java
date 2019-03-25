@@ -91,20 +91,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			r.x += 5;
 		} else if (key == KeyEvent.VK_LEFT) {
 			r.x -= 5;
-		} 
-		else if (key == KeyEvent.VK_SPACE) {
-			om.addProjectile(new Projectile(r.x, r.y, 10, 10));
+		} else if (key == KeyEvent.VK_SPACE) {
+			om.addProjectile(new Projectile(r.x + 20, r.y, 10, 10));
 		}
 
-		
+		if (currentState > END_STATE)
 
-	if(currentState>END_STATE)
+		{
 
-	{
+			currentState = MENU_STATE;
 
-		currentState = MENU_STATE;
-
-	}
+		}
 	}
 
 	@Override
@@ -114,11 +111,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateMenuState() {
-		om.update();
 	}
 
 	void updateGameState() {
-
+		om.update();
 	}
 
 	void updateEndState() {
