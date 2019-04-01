@@ -1,13 +1,15 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ObjectManager {
 	Rocketship r;
 	ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 	ArrayList<Alien> aliens = new ArrayList<Alien>();
 	Alien a;
-	//enemyTimer = 0;
+	long enemyTimer = 0;
+	int enemySpawnTime = 3000;
 
 	public ObjectManager(Rocketship r) {
 		this.r = r;
@@ -17,7 +19,6 @@ public class ObjectManager {
 		r.update();
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).update();
-			a.update();
 		}
 	}
 
@@ -25,7 +26,9 @@ public class ObjectManager {
 		r.draw(g);
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).draw(g);
-			a.draw(g);
+		}
+		for (int j = 0; j < aliens.size(); j++) {
+			aliens.get(j).draw(g);
 		}
 	}
 
@@ -38,10 +41,24 @@ public class ObjectManager {
 	}
 
 	void manageEnemies() {
-	//	if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
-	//		addAlien(new Alien(new Random().nextInt(LeagueInvaders.WIDTH), 0, 50, 50));
-//
-	//		enemyTimer = System.currentTimeMillis();
+		if (System.currentTimeMillis() - enemyTimer >= enemySpawnTime) {
+			addAlien(new Alien(new Random().nextInt(LeagueInvaders.WIDTH), 0, 50, 50));
+
+			enemyTimer = System.currentTimeMillis();
 		}
 	}
-//}
+
+	void purgeObjects() {
+		for (int i = 0; i < projectiles.size(); i++) {
+			if (projectiles.get(i).isAlive == false) {
+				projectiles.remove(i);
+			}
+		}
+		for (int j = 0; j < aliens.size(); j++) {
+			if (aliens.get(j).isAlive == false) {
+				aliens.remove(j);
+			}
+
+		}
+	}
+}
