@@ -61,4 +61,22 @@ public class ObjectManager {
 
 		}
 	}
+
+	void checkCollision() {
+		for (Alien a : aliens) {
+
+			if (r.collisionBox.intersects(a.collisionBox)) {
+
+				r.isAlive = false;
+				break;
+			}
+
+			for (Projectile p : projectiles) {
+				if (a.collisionBox.intersects(p.collisionBox)) {
+					a.isAlive = false;
+				}
+			}
+		}
+
+	}
 }
