@@ -10,15 +10,20 @@ public class ObjectManager {
 	Alien a;
 	long enemyTimer = 0;
 	int enemySpawnTime = 3000;
+	int score = 0;
 
 	public ObjectManager(Rocketship r) {
 		this.r = r;
+		this.score = score;
 	}
 
 	void update() {
 		r.update();
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).update();
+		}
+		for (int j = 0; j < aliens.size(); j++) {
+			aliens.get(j).update();
 		}
 	}
 
@@ -76,6 +81,9 @@ public class ObjectManager {
 					a.isAlive = false;
 				}
 			}
+			//int getScore() {
+			//	return score;
+			//}
 		}
 
 	}

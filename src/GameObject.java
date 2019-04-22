@@ -15,6 +15,7 @@ public class GameObject {
 		this.width = width;
 		this.height = height;
 		this.collisionBox = new Rectangle(x, y, width, height);
+		this.isAlive = true;
 	}
 
 	void update() {
