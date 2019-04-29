@@ -62,6 +62,8 @@ public class ObjectManager {
 		for (int j = 0; j < aliens.size(); j++) {
 			if (aliens.get(j).isAlive == false) {
 				aliens.remove(j);
+				score++;
+				getScore();
 			}
 
 		}
@@ -81,10 +83,12 @@ public class ObjectManager {
 					a.isAlive = false;
 				}
 			}
-			//int getScore() {
-			//	return score;
-			//}
 		}
 
 	}
+
+	public int getScore() {
+		return score;
+	}
+
 }
