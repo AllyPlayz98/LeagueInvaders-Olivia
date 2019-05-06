@@ -5,7 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -18,11 +21,31 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font titleFont;
 	Rocketship r = new Rocketship(250, 700, 50, 50);
 	ObjectManager om = new ObjectManager(r);
+	public static BufferedImage alienImg;
+	public static BufferedImage rocketImg;
+	public static BufferedImage bulletImg;
+	public static BufferedImage spaceImg;
 
 	public GamePanel() {
 		timer = new Timer(1000 / 60, this);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
+		try {
 
+			alienImg = ImageIO.read(this.getClass().getResourceAsStream("alien.png"));
+
+			rocketImg = ImageIO.read(this.getClass().getResourceAsStream("rocket.png"));
+
+			bulletImg = ImageIO.read(this.getClass().getResourceAsStream("bullet.png"));
+
+			spaceImg = ImageIO.read(this.getClass().getResourceAsStream("space.png"));
+
+		} catch (IOException e) {
+
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+
+		}
 	}
 
 	void startGame() {
@@ -71,22 +94,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("a");
+		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("b");
+		
 
 		int key = e.getKeyCode();
 
 		if (key == KeyEvent.VK_ENTER) {
-			currentState++;
 			if (currentState == END_STATE) {
 				r = new Rocketship(250, 700, 50, 50);
 				om = new ObjectManager(r);
 			}
+			currentState++;
 		} else if (key == KeyEvent.VK_UP) {
 			r.y -= 5;
 		} else if (key == KeyEvent.VK_DOWN) {
@@ -111,7 +134,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("c");
+		
 	}
 
 	void updateMenuState() {
@@ -143,8 +166,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void drawGameState(Graphics g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT);
+		g.drawImage(GamePanel.spaceImg, 0, 0, LeagueInvaders.WIDTH, LeagueInvaders.HEIGHT, null);
 		om.draw(g);
 	}
 
@@ -154,7 +176,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(titleFont);
 		g.setColor(Color.YELLOW);
 		g.drawString("GAME OVER", 100, 110);
-		g.drawString("You killed () enemies", 20, 340);
+		g.drawString("You killed " + om.getScore() + " enemies", 20, 340);
 		g.drawString("Press ENTER to", 70, 600);
 		g.drawString("restart", 173, 650);
 	}
